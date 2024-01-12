@@ -1,1 +1,65 @@
-Hello world
+<html>
+  <head>
+    <title>Poker.js测试</title>
+  </head>
+  <body>
+    <div id="container">
+      &nbsp;
+    </div>
+  </body>
+  <script src="./poker.min.js"></script>
+  <script>
+
+    if (window.Poker) {
+
+        var container = document.getElementById('container');
+        var domCanvas = document.createElement('canvas');
+        var canvas = domCanvas.getContext('2d');
+        var param = {};
+        container.appendChild(domCanvas);
+
+        var min_w = 0;
+        var max_w = 1000;
+        var min_h = 0;
+        var max_h = 400;
+        var min_size = 50;
+        var max_size = 200;
+
+        domCanvas.height = max_h + 200;
+        domCanvas.width = max_w + 200;
+
+        function getRandom(left, right) {
+            return Math.floor(Math.random() * (right - left) + left);
+        }
+        
+        var suits = ['hearts', 'diamonds', 'spades', 'clubs'];
+        var points = ['a', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'j', 'q', 'k'];
+        
+        //随机生成52张牌
+        for (var i in suits) {
+            for (var j in points) {
+                var w = getRandom(min_w, max_w);
+                var h = getRandom(min_h, max_h);
+                var size = getRandom(min_size, max_size);
+                canvas.drawPokerCard(w, h, size, suits[i], points[j]);
+            }
+        }
+
+        //小王
+        var w1 = getRandom(min_w, max_w);
+        var h1 = getRandom(min_h, max_h);
+        var size1 = getRandom(min_size, max_size);
+        canvas.drawPokerCard(w1, h1, size1, 'spades', 'joker');
+
+        //大王
+        var w2 = getRandom(min_w, max_w);
+        var h2 = getRandom(min_h, max_h);
+        var size2 = getRandom(min_size, max_size);
+        canvas.drawPokerCard(w2, h2, size2, 'hearts', 'joker');
+
+    } else {
+        document.body.innerHTML = 'This browser does not support canvas.';
+    }
+
+  </script>
+</html>
